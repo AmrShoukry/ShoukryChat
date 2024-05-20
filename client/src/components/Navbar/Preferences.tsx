@@ -38,7 +38,7 @@ const Preferences = ({ toggleLanguage, toggleTheme }) => {
   }, [language, theme, mode]);
 
   return (
-    <div className="absolute w-dvw h-dvh bg-theme/90">
+    <div className="absolute w-dvw h-dvh bg-theme/90 z-30">
       <div className="-translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-primary rounded-2xl  absolute left-1/2 top-1/2 ">
         <div className="backdrop-blur-sm bg-white/40 p-12 rounded-2xl flex flex-col items-center">
           {toggleLanguage && (

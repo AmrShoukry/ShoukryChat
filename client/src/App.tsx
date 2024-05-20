@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Signup from './pages/Auth/Signup';
+import Login from './pages/Auth/Login';
+import ResetPassword from './pages/Auth/ResetPassword';
 
 function App() {
   const preferences = useSelector((store) => store.preferencesReducer);
@@ -53,7 +56,9 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Navbar />} />
-        {/* Define more routes here */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/reset" element={<ResetPassword />} />
       </Routes>
     </Router>
   );

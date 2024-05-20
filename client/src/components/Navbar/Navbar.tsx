@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-gradient-to-r from-primary to-theme fixed w-full">
+      <nav className="bg-gradient-to-r from-primary to-theme fixed w-full z-50">
         <div className="backdrop-blur-sm background  flex items-center">
           <div className="container mx-auto px-4 flex justify-between flex-wrap items-center gap-2 h-[64px] w-full">
             <Logo />
