@@ -120,11 +120,26 @@
   transform: translateY(calc(-100% + -64px));
 }
 
-.languages div {
-  @apply w-[200px] bg-theme rounded-sm overflow-hidden;
+.languages,
+.themes,
+.modes {
+  @apply flex flex-col gap-1;
 }
 
-.languages div button {
-  @apply w-full bg-theme/40 backdrop-blur-sm flex items-center gap-2 justify-center py-2;
+.languages > div,
+.themes > div,
+.modes > div {
+  @apply w-[200px] bg-theme rounded-sm overflow-hidden flex;
+}
+
+.languages > div button,
+.themes > div button,
+.modes > div button {
+  @apply w-full bg-theme/40 backdrop-blur-sm flex items-center justify-center py-2 gap-2;
+}
+
+.themes > div button div,
+.modes > div button div {
+  @apply w-[16px] h-[16px] border border-solid  box-border rounded-sm;
 }
 

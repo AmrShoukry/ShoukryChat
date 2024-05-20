@@ -2,11 +2,13 @@ import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 import Preferences from './Preferences';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const [menu, toggleMenu] = useState(false);
   const [isLanguageOpen, toggleLanguage] = useState(false);
   const [isThemeOpen, toggleTheme] = useState(false);
+  const [t, i18n] = useTranslation('global');
 
   const handleToggle = (e) => {
     toggleMenu((menu) => !menu);
@@ -33,19 +35,19 @@ const Navbar = () => {
                 } md:translate-y-0 transition duration-300`}>
                 <ul className="flex flex-col background md:bg-transparent w-full md:flex-row md:w-auto md:gap-8 md:flex">
                   <li className="custom-link">
-                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/">{t('navbar.home')}</NavLink>
                   </li>
                   <li className="custom-link">
-                    <NavLink to="/">About</NavLink>
+                    <NavLink to="/">{t('navbar.about')}</NavLink>
                   </li>
                   <li className="custom-link">
-                    <NavLink to="/">Chats</NavLink>
+                    <NavLink to="/">{t('navbar.chats')}</NavLink>
                   </li>
                   <li className="custom-link">
-                    <NavLink to="/">Profile</NavLink>
+                    <NavLink to="/">{t('navbar.profile')}</NavLink>
                   </li>
                   <li className="custom-link">
-                    <NavLink to="/">Logout</NavLink>
+                    <NavLink to="/">{t('navbar.logout')}</NavLink>
                   </li>
                 </ul>
               </div>
@@ -187,26 +189,26 @@ const Navbar = () => {
                   <path
                     d="M3 7H21"
                     stroke="#171717"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                   />
                   <path
                     d="M9.48999 12H21"
                     stroke="#171717"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                   />
                   <path
                     d="M3 12H5.99"
                     stroke="#171717"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                   />
                   <path
                     d="M3 17H21"
                     stroke="#171717"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                   />
                 </svg>
               </button>
@@ -214,14 +216,12 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      {isLanguageOpen && <Preferences toggleLanguage={toggleLanguage} />}
-      <button
-        className="mt-80"
-        onClick={(e) => {
-          document.documentElement.classList.add('dark');
-        }}>
-        Dark Mode
-      </button>
+      {isLanguageOpen && (
+        <Preferences toggleLanguage={toggleLanguage} toggleTheme={null} />
+      )}
+      {isThemeOpen && (
+        <Preferences toggleTheme={toggleTheme} toggleLanguage={null} />
+      )}
     </>
   );
 };

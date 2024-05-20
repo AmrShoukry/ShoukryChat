@@ -1,0 +1,25 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "chats": "Chats",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Signup"
+  },
+  "preferences": {
+    "language": "Choose your prefered Language",
+    "theme": "Choose your prefered Theme and Mode",
+    "themes": {
+      "purple": "Purple",
+      "red": "Red",
+      "yellow": "Yellow"
+    },
+    "modes": {
+      "light": "Light",
+      "dark": "Dark"
+    }
+  }
+}
+

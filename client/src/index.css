@@ -2,34 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* --mainColor: #ff303b; */
-  /* --mainColor: #007f55; */
-  /* --mainColor: #ffe749; */
-
-  :root {
-    color: rgb(255, 225, 29);
-
-    --mainColor: 102 0 255;
-    --mainColor: 255 48 59;
-    --mainColor: 255 225 29;
-    --mainTheme: 255 255 255;
-    --mainText: 0 0 0;
-    --mode: 'light';
-    --opacityLevel: 0.8;
-  }
-
-  :root.dark {
-    --mainColor: 195 156 255;
-    --mainColor: 247 91 99;
-    --mainColor: 247 232 136;
-    --mainTheme: 51 51 51;
-    --mainText: 255 255 255;
-    --mode: 'dark';
-    --opacityLevel: 0.4;
-  }
-}
-
 * {
   font-family: 'Rubik', 'Segoe UI';
   color: rgb(var(--mainText) / 1);
