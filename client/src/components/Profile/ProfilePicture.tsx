@@ -1,15 +1,23 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ProfileEditOptions from './ProfileEditOptions';
 
 const ProfilePicture = () => {
   const user = useSelector((store) => store.userReducer);
+  const [toggleEdit, setToggleEdit] = useState(false);
 
-  function handleRequestEditButton(e) {}
+  function handleRequestEditButton(e) {
+    console.log('a');
+    setToggleEdit(true);
+  }
 
   console.log(user.data);
 
   return (
-    <div className="flex flex-col gap-[8px] justify-center items-center">
-      <div className="w-[100px] h-[100px] rounded-xl bg-slate-800"></div>
+    <div className="flex flex-col gap-[8px] justify-center items-center mt-[40px]">
+      <img
+        className="w-[100px] h-[100px] rounded-xl bg-slate-800"
+        src="http://localhost:8000/images/profilePicture-amr.jpeg"></img>
       <p>
         {user.data.firstName} {user.data.lastName}
       </p>
@@ -35,6 +43,7 @@ const ProfilePicture = () => {
           />
         </svg>
       </button>
+      {toggleEdit && <ProfileEditOptions setToggleEdit={setToggleEdit} />}
     </div>
   );
 };

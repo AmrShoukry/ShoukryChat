@@ -10,6 +10,7 @@ const { json, urlencoded } = require('body-parser');
 const cors = require('cors');
 const authRouter = require('./routes/authRoutes');
 const preferencesRouter = require('./routes/preferencesRoutes');
+const path = require('path');
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000,
@@ -35,6 +36,8 @@ app.use(xss()); // Sanitize incoming request data against XSS attacks using xss-
 app.use(hpp()); // Prevent HTTP Parameter Pollution attacks using hpp middleware
 app.use(compression()); // Compress HTTP responses using gzip/deflate algorithms using compression middleware
 app.use(express.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 require('@babel/register')({
   presets: ['@babel/preset-env', '@babel/preset-react'],

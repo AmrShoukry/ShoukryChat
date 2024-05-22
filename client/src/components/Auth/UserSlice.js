@@ -43,7 +43,7 @@ export const updateMode = createAsyncThunk(
 
     const data = await res.json();
 
-    return data;
+    return data.data;
   },
 );
 
@@ -62,7 +62,7 @@ export const updateTheme = createAsyncThunk(
 
     const data = await res.json();
 
-    return data;
+    return data.data;
   },
 );
 
@@ -81,7 +81,7 @@ export const updateLanguage = createAsyncThunk(
 
     const data = await res.json();
 
-    return data;
+    return data.data;
   },
 );
 

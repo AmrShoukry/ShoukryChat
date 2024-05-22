@@ -158,3 +158,24 @@
 .active {
   font-weight: bold;
 }
+
+.optionsDiv > div {
+  @apply overflow-hidden;
+}
+
+.options > div button {
+  @apply w-full bg-theme/40 backdrop-blur-sm flex items-center justify-center py-2 gap-2 px-[24px] rounded-sm;
+}
+
+.gridData > div {
+  @apply w-full bg-theme/40 backdrop-blur-sm flex flex-col items-center justify-center py-8 px-[24px] rounded-xl;
+}
+
+.gridData > div p:last-of-type {
+  @apply text-[64px] font-bold;
+}
+
+.grid-fit {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
