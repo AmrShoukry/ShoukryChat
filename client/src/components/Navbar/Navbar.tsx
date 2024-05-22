@@ -1,14 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from './Logo';
 import Preferences from './Preferences';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [menu, toggleMenu] = useState(false);
   const [isLanguageOpen, toggleLanguage] = useState(false);
   const [isThemeOpen, toggleTheme] = useState(false);
   const [t, i18n] = useTranslation('global');
+  const user = useSelector((store) => store.userReducer);
 
   const handleToggle = (e) => {
     toggleMenu((menu) => !menu);
@@ -38,17 +40,31 @@ const Navbar = () => {
                     <NavLink to="/">{t('navbar.home')}</NavLink>
                   </li>
                   <li className="custom-link">
-                    <NavLink to="/">{t('navbar.about')}</NavLink>
+                    <NavLink to="/about">{t('navbar.about')}</NavLink>
                   </li>
-                  <li className="custom-link">
-                    <NavLink to="/">{t('navbar.chats')}</NavLink>
-                  </li>
-                  <li className="custom-link">
-                    <NavLink to="/">{t('navbar.profile')}</NavLink>
-                  </li>
-                  <li className="custom-link">
-                    <NavLink to="/">{t('navbar.logout')}</NavLink>
-                  </li>
+                  {user.data && (
+                    <>
+                      <li className="custom-link">
+                        <NavLink to="/chats">{t('navbar.chats')}</NavLink>
+                      </li>
+                      <li className="custom-link">
+                        <NavLink to="/profile">{t('navbar.profile')}</NavLink>
+                      </li>
+                      <li className="custom-link">
+                        <NavLink to="/logout">{t('navbar.logout')}</NavLink>
+                      </li>
+                    </>
+                  )}
+                  {!user.data && (
+                    <>
+                      <li className="custom-link">
+                        <NavLink to="/login">{t('navbar.login')}</NavLink>
+                      </li>
+                      <li className="custom-link">
+                        <NavLink to="/signup">{t('navbar.signup')}</NavLink>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
               <button onClick={(e) => handleThemeChoice(e)}>

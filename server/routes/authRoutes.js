@@ -1,10 +1,20 @@
-import { handleSignup } from '../controllers/authController';
-
 const { Router } = require('express');
-
+const {
+  handleSignup,
+  handleAccountVerification,
+  handleLogin,
+  verifyToken,
+  handleLogout,
+  getCurrentUser,
+} = require('../controllers/authController');
+const upload = require('../utils/uploadImage');
 const authRouter = Router();
 
-authRouter.route('/signup').post(handleSignup);
+authRouter.route('/signup').post(upload.single('profilePicture'), handleSignup);
+authRouter.route('/verifyAccount').post(handleAccountVerification);
+authRouter.route('/login').post(handleLogin);
+authRouter.route('/logout').get(verifyToken, handleLogout);
+authRouter.route('/current').get(getCurrentUser);
 
-export default authRouter;
+module.exports = authRouter;
 

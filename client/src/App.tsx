@@ -1,16 +1,44 @@
 import './global.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Signup from './pages/Auth/Signup';
 import Login from './pages/Auth/Login';
 import ResetPassword from './pages/Auth/ResetPassword';
+import Logout from './pages/Auth/Logout';
+import { setUser, setLoading } from './components/Auth/UserSlice';
+import Home from './pages/Home/Home';
+import Loader from './components/General/Loader';
+import Profile from './pages/Profile/Profile';
 
 function App() {
+  const user = useSelector((store) => store.userReducer);
   const preferences = useSelector((store) => store.preferencesReducer);
-  const { language, theme, mode } = preferences;
+  const { language, mode, theme } = preferences;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getCurrentUser() {
+      const res = await fetch('http://localhost:8000/v1/auth/current', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+
+      dispatch(setUser(data.data));
+
+      console.log(data);
+    }
+    getCurrentUser();
+    dispatch(setLoading(false));
+  }, []);
 
   useEffect(() => {
     if (language === 'ar') {
@@ -22,6 +50,8 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
+
+    console.log('Hello');
 
     if (mode === 'light') {
       root.style.setProperty('--mainTheme', '255 255 255');
@@ -37,7 +67,7 @@ function App() {
         root.style.setProperty('--mainColor', '255 225 29');
       }
     } else if (mode === 'dark') {
-      root.style.setProperty('--mainTheme', '0 0 0');
+      root.style.setProperty('--mainTheme', '51 51 51');
       root.style.setProperty('--mainText', '255 255 255');
       root.style.setProperty('--mode', 'dark');
       root.style.setProperty('--opacityLevel', '0.2');
@@ -52,13 +82,35 @@ function App() {
     }
   }, [theme, mode]);
 
+  if (user.isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Navbar />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        {/* user.data */}
+        <Route
+          path="/"
+          element={user.data ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/signup"
+          element={user.data ? <Navigate to="/" /> : <Signup />}
+        />
+        <Route
+          path="/login"
+          element={user.data ? <Navigate to="/" /> : <Login />}
+        />
         <Route path="/reset" element={<ResetPassword />} />
+        <Route
+          path="/logout"
+          element={user.data ? <Logout /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/profile"
+          element={user.data ? <Profile /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );

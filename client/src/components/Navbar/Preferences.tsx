@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTheme, setLanguage, setMode } from './PreferencesSlice';
 import { useTranslation } from 'react-i18next';
+import { updateMode, updateTheme, updateLanguage } from '../Auth/UserSlice';
 
 const Preferences = ({ toggleLanguage, toggleTheme }) => {
   const dispatch = useDispatch();
@@ -16,15 +17,18 @@ const Preferences = ({ toggleLanguage, toggleTheme }) => {
     }
     toggleLanguage(false);
     dispatch(setLanguage(lang));
+    dispatch(updateLanguage(lang));
     i18n.changeLanguage(lang);
   }
 
   function handleToggleTheme(e, theme, mode) {
     if (mode) {
       dispatch(setMode(mode));
+      dispatch(updateMode(mode));
     }
     if (theme) {
       dispatch(setTheme(theme));
+      dispatch(updateTheme(theme));
     }
     if (!theme && !mode) {
       toggleTheme(false);
@@ -38,7 +42,7 @@ const Preferences = ({ toggleLanguage, toggleTheme }) => {
   }, [language, theme, mode]);
 
   return (
-    <div className="absolute w-dvw h-dvh bg-theme/90 z-30">
+    <div className="absolute w-dvw h-dvh bg-theme/90 z-[99]">
       <div className="-translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-primary rounded-2xl  absolute left-1/2 top-1/2 ">
         <div className="backdrop-blur-sm bg-white/40 p-12 rounded-2xl flex flex-col items-center">
           {toggleLanguage && (

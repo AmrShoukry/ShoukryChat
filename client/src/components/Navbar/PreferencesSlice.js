@@ -1,8 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const savedTheme = localStorage.getItem('theme') || 'purple';
-const savedMode = localStorage.getItem('mode') || 'light';
-const savedLanguage = localStorage.getItem('language') || 'en';
+if (localStorage.getItem('theme') === null) {
+  localStorage.setItem('theme', 'purple');
+}
+
+if (localStorage.getItem('mode') === null) {
+  localStorage.setItem('mode', 'light');
+}
+
+if (localStorage.getItem('language') === null) {
+  localStorage.setItem('language', 'en');
+}
+
+const savedTheme = localStorage.getItem('theme');
+const savedMode = localStorage.getItem('mode');
+const savedLanguage = localStorage.getItem('language');
 
 const preferencesSlice = createSlice({
   name: 'preferences',

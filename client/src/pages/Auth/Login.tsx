@@ -1,10 +1,37 @@
 import { Link } from 'react-router-dom';
 import Input from '../../components/Auth/Input';
 import Navbar from '../../components/Navbar/Navbar';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../components/Auth/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  function handleSubmission(e) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  async function handleSubmission(e) {
     e.preventDefault();
+    const sentData = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+
+    const res = await fetch('http://localhost:8000/v1/auth/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sentData),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    dispatch(setUser(data.user));
+
+    if (data.status === 'success') {
+      navigate('/');
+    }
+    console.log(data);
   }
   return (
     <>

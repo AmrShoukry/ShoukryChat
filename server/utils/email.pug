@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title #{subject}
+  body
+    h1 Verify Your Email
+    p Dear #{firstName},
+    p #{content}:
+    form(action=url, method=method)
+      input(type="hidden" name="token" value=token)
+      input(type="hidden" name="creationTime" value=creationTime)
+      input(type="hidden" name="email" value=email)
+      button(type="submit") Verify Email

@@ -1,10 +1,36 @@
 import { Link } from 'react-router-dom';
 import Input from '../../components/Auth/Input';
 import Navbar from '../../components/Navbar/Navbar';
+import { useSelector } from 'react-redux';
 
 const Signup = () => {
-  function handleSubmission(e) {
+  const preferences = useSelector((store) => store.preferencesReducer);
+
+  async function handleSubmission(e) {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('firstName', e.target.firstName.value);
+    formData.append('lastName', e.target.lastName.value);
+    formData.append('username', e.target.username.value);
+    formData.append('email', e.target.email.value);
+    formData.append('bio', e.target.bio.value);
+    formData.append('password', e.target.password.value);
+    formData.append(
+      'passwordConfirmation',
+      e.target.passwordConfirmation.value,
+    );
+    formData.append('profilePicture', e.target.image.files[0]);
+    formData.append('language', preferences.language);
+    formData.append('theme', preferences.theme);
+    formData.append('mode', preferences.mode);
+
+    const res = await fetch('http://localhost:8000/v1/auth/signup', {
+      method: 'POST',
+      body: formData, // No need for 'Content-Type' header with FormData
+    });
+
+    const data = await res.json();
+    console.log(data);
   }
   return (
     <>
@@ -23,7 +49,10 @@ const Signup = () => {
                 Already Have an account?
               </Link>
             </div>
-            <Input name="name" value="Name" type="text" />
+            <div className="flex justify-between gap-[12px] flex-wrap">
+              <Input name="firstName" value="First Name" type="text" />
+              <Input name="lastName" value="Last Name" type="text" />
+            </div>
             <Input name="username" value="Username" type="text" />
             <Input name="email" value="Email" type="text" />
             <Input name="password" value="Password" type="password" />
@@ -46,6 +75,7 @@ const Signup = () => {
                 type="file"
                 id="image"
                 accept=".png, .jpg, .jpeg"
+                name="profilePicture"
                 className="hidden"
               />
             </div>

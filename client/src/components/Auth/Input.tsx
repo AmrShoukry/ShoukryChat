@@ -12,7 +12,7 @@ const Input = ({ name, value, type }) => {
   }
 
   return (
-    <div className="relative mt-12">
+    <div className="relative mt-12 flex-grow">
       <label
         htmlFor={name}
         className={`absolute opacity-60 ${
